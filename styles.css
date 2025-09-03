@@ -7,9 +7,7 @@
   --amber: #f3c340;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   background: var(--bg);
@@ -35,280 +33,119 @@ body {
   margin-bottom: 18px;
 }
 
-.brand {
-  font-weight: 800;
-  font-size: 20px;
-}
-.brand span {
-  color: var(--mint);
-}
-.ticker {
-  font-weight: 700;
-  color: var(--amber);
-}
+.brand { font-weight: 800; font-size: 20px; }
+.brand span { color: var(--mint); }
+.ticker { font-weight: 700; color: var(--amber); }
 
-.hero {
-  text-align: center;
-  margin: 40px 0;
-}
-.hero h1 {
-  font-size: 28px;
-  margin-bottom: 8px;
-}
-.hero .sub {
-  color: #a8b0bf;
-  margin-bottom: 20px;
-}
+.hero { text-align: center; margin: 40px 0; }
+.hero h1 { font-size: 28px; margin-bottom: 8px; }
+.hero .sub { color: #a8b0bf; margin-bottom: 20px; }
+
 .hero .buttons {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin: 20px 0;
-  flex-wrap: wrap;
+  display: flex; justify-content: center; gap: 12px; margin: 20px 0; flex-wrap: wrap;
 }
 .btn {
-  min-width: 140px;
-  height: 80px;
-  border-radius: 14px;
-  text-decoration: none;
-  font-weight: 700;
-  color: var(--bg);
-  text-align: center;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-size: 20px;
-  line-height: 1;
+  min-width: 140px; height: 80px; border-radius: 14px; text-decoration: none;
+  font-weight: 700; color: var(--bg); text-align: center;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; line-height: 1;
 }
 .btn.easy { background: var(--mint); }
 .btn.medium { background: var(--amber); }
 .btn.hard { background: #ff6a5a; color: #fff; }
 .btn.simulation {
-  background: #2a2f3a;
-  color: #e9ecf2;
-  cursor: default;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  background: #2a2f3a; color: #e9ecf2; cursor: default; flex-direction: column;
 }
-.btn.simulation .soon {
-  font-size: 12px;
-  color: #a8b0bf;
-  margin-top: 4px;
-  font-weight: 400;
-  line-height: 1.2;
-}
+.btn.simulation .soon { font-size: 12px; color: #a8b0bf; margin-top: 4px; font-weight: 400; }
+
 .note { margin-top: 12px; color: #a8b0bf; }
 
-/* Twitter + CA */
 .links {
-  margin: 30px auto 0;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  align-items: center;
+  margin: 30px auto 0; text-align: center; display: flex; flex-direction: column;
+  gap: 12px; align-items: center;
 }
 .social-link {
-  background: #1da1f2;
-  color: #fff;
-  padding: 10px 18px;
-  border-radius: 10px;
-  font-weight: 600;
-  text-decoration: none;
+  background: #1da1f2; color: #fff; padding: 10px 18px; border-radius: 10px;
+  font-weight: 600; text-decoration: none;
 }
-.social-link:hover {
-  background: #0d8ddb;
-}
+.social-link:hover { background: #0d8ddb; }
 .ca-box {
-  background: #121620;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 10px 16px;
-  color: var(--fg);
-  font-size: 14px;
+  background: #121620; border: 1px solid var(--border); border-radius: 10px;
+  padding: 10px 16px; color: var(--fg); font-size: 14px;
 }
-.ca-box strong {
-  display: block;
-  margin-bottom: 4px;
-  color: var(--amber);
-}
+.ca-box strong { display: block; margin-bottom: 4px; color: var(--amber); }
 
-.how {
-  margin-top: 40px;
-}
-.how h2 {
-  font-size: 20px;
-  margin-bottom: 10px;
-}
-.how ol {
-  color: #a8b0bf;
-}
+.how { margin-top: 40px; }
+.how h2 { font-size: 20px; margin-bottom: 10px; }
+.how ol { color: #a8b0bf; }
 
 .foot {
-  text-align: center;
-  margin-top: 60px;
-  padding-top: 12px;
-  border-top: 1px solid var(--border);
-  font-size: 14px;
-  color: #a8b0bf;
+  text-align: center; margin-top: 60px; padding-top: 12px;
+  border-top: 1px solid var(--border); font-size: 14px; color: #a8b0bf;
 }
 
-/* Quiz styling */
-.quiz-wrap {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 24px 18px;
-}
-
-.crumbs {
-  color: #a8b0bf;
-  font-size: 14px;
-  margin-bottom: 10px;
-}
+/* Quiz page */
+.quiz-wrap { max-width: 900px; margin: 0 auto; padding: 24px 18px; }
+.crumbs { color: #a8b0bf; font-size: 14px; margin-bottom: 10px; }
 
 .qcard {
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 18px;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.03),
-    rgba(255, 255, 255, 0)
-  );
+  border: 1px solid var(--border); border-radius: 16px; padding: 18px;
+  background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,0));
 }
 
-.tweetbox {
-  display: grid;
-  gap: 12px;
-  margin-bottom: 14px;
-}
+.tweetbox { display: grid; gap: 12px; margin-bottom: 14px; }
+.tweettext { color: var(--fg); }
 
-.tweettext {
-  color: var(--fg);
-}
+/* IMPORTANT: hide any tweet image that has no src or is hidden */
+#tweetImg[hidden],
+.tweetbox img:not([src]),
+.tweetbox img[src=""] { display: none !important; }
 
-/* Enlarged images */
+/* Images sizing */
 .quiz-image {
-  width: 400px;
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 10px auto;
+  width: 400px; max-width: 100%; height: auto; display: block; margin: 10px auto;
 }
 .option-image {
-  width: 250px;
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 10px auto;
+  width: 250px; max-width: 100%; height: auto; display: block; margin: 10px auto;
 }
+/* Rug pull charts big */
+.rug-option .option-image { width: 100%; max-width: 600px; height: auto; }
 
-/* Rug pull charts — BIG */
-.rug-option .option-image {
-  width: 100%;
-  max-width: 600px; /* 4x bigger */
-  height: auto;
-}
-
-.opts {
-  display: grid;
-  gap: 12px;
-  margin-top: 10px;
-}
-@media (min-width: 760px) {
-  .opts {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
+.opts { display: grid; gap: 12px; margin-top: 10px; }
+@media (min-width: 760px) { .opts { grid-template-columns: repeat(2, 1fr); } }
 
 .opt {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 12px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: #121620;
-  cursor: pointer;
-  text-decoration: none;
-  color: var(--fg);
-  text-align: center;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; gap: 8px; padding: 12px;
+  border: 1px solid var(--border); border-radius: 12px; background: #121620;
+  cursor: pointer; color: var(--fg);
 }
-.opt:hover {
-  filter: brightness(0.98);
-}
-.opt.picked {
-  outline: 2px solid var(--amber);
-}
-.opt.correct {
-  outline: 2px solid var(--mint);
-}
-.opt.wrong {
-  outline: 2px solid #ff6a5a;
-}
-.opt span {
-  margin-top: 8px;
-}
+.opt:hover { filter: brightness(0.98); }
+.opt.picked { outline: 2px solid var(--amber); }
+.opt.correct { outline: 2px solid var(--mint); }
+.opt.wrong { outline: 2px solid #ff6a5a; }
+.opt span { display: block; text-align: center; line-height: 1.2; }
 
-.bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 16px 0 10px;
-}
+.bar { display: flex; justify-content: space-between; align-items: center; margin: 16px 0 10px; }
 .pill {
-  padding: 6px 10px;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  color: #a8b0bf;
-  font-size: 13px;
+  padding: 6px 10px; border: 1px solid var(--border); border-radius: 999px;
+  color: #a8b0bf; font-size: 13px;
 }
 
-.submit,
-.next {
-  margin-top: 12px;
-  display: inline-block;
-  padding: 12px 18px;
-  border-radius: 12px;
-  background: var(--mint);
-  color: var(--bg);
-  font-weight: 800;
-  text-decoration: none;
+.submit, .next {
+  margin-top: 12px; display: inline-block; padding: 12px 18px; border-radius: 12px;
+  background: var(--mint); color: var(--bg); font-weight: 800; text-decoration: none;
 }
-.submit {
-  background: var(--amber);
-}
-.submit[aria-disabled="true"] {
-  opacity: 0.6;
-  pointer-events: none;
-}
+.submit { background: var(--amber); }
+.submit[aria-disabled="true"] { opacity: .6; pointer-events: none; }
 
-.lesson {
-  margin-top: 10px;
-  color: #a8b0bf;
-  font-size: 14px;
-}
+.lesson { margin-top: 10px; color: #a8b0bf; font-size: 14px; }
 
-.result {
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 24px;
-  text-align: center;
-}
-.medal {
-  font-size: 56px;
-  margin-bottom: 8px;
-}
-.scorebig {
-  font-size: 22px;
-  margin: 8px 0 2px;
-}
-.slogan {
-  color: #a8b0bf;
-}
+.result { border: 1px solid var(--border); border-radius: 16px; padding: 24px; text-align: center; }
+.medal { font-size: 56px; margin-bottom: 8px; }
+.scorebig { font-size: 22px; margin: 8px 0 2px; }
+.slogan { color: #a8b0bf; }
+
 
 
 
