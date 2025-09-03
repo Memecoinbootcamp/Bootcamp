@@ -1,0 +1,28 @@
+{
+  "questions": [
+    {
+      "id": "q1",
+      "tweetText": "Which coin is the original dog memecoin?",
+      "tweetImage": "",
+      "options": [
+        { "id": "doge", "label": "$DOGE", "image": "" },
+        { "id": "shib", "label": "$SHIB", "image": "" },
+        { "id": "bonk", "label": "$BONK", "image": "" }
+      ],
+      "correctId": "doge",
+      "lesson": "Doge is the OG dog memecoin."
+    },
+    {
+      "id": "q2",
+      "tweetText": "Which coin is famous for its green frog mascot?",
+      "tweetImage": "",
+      "options": [
+        { "id": "pepe", "label": "$PEPE", "image": "" },
+        { "id": "bonk", "label": "$BONK", "image": "" },
+        { "id": "wif", "label": "$WIF", "image": "" }
+      ],
+      "correctId": "pepe",
+      "lesson": "Pepe the Frog is the iconic mascot for $PEPE."
+    }
+  ]
+}
