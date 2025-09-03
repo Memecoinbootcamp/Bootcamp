@@ -11,7 +11,7 @@
         { "id": "unknown", "label": "The Developer is unknown", "image": "" }
       ],
       "correctId": "backrooms",
-      "lesson": "Fartcoin originated from the Infinite Backrooms meme lore."
+      "lesson": "Fartcoin originated from Infinite Backrooms meme lore."
     },
     {
       "id": "m2",
@@ -24,7 +24,7 @@
         { "id": "vitalik", "label": "Vitalik Buterin", "image": "" }
       ],
       "correctId": "elon",
-      "lesson": "Elon Musk’s tweets have historically moved crypto markets instantly."
+      "lesson": "Elon Musk’s posts have repeatedly moved crypto markets."
     },
     {
       "id": "m3",
@@ -33,11 +33,11 @@
       "options": [
         { "id": "doge", "label": "$DOGE", "image": "" },
         { "id": "pepe", "label": "$PEPE", "image": "" },
-        { "id": "lolcoin", "label": "Lolcoin", "image": "" },
+        { "id": "lolcoin", "label": "$LOLCOIN", "image": "" },
         { "id": "wojak", "label": "$WOJAK", "image": "" }
       ],
       "correctId": "lolcoin",
-      "lesson": "Before $DOGE went mainstream, Lolcoin was considered the first memecoin experiment."
+      "lesson": "$LOLCOIN is widely cited as an early memecoin experiment before $DOGE took off."
     },
     {
       "id": "m4",
@@ -49,8 +49,8 @@
         { "id": "solporttom", "label": "Solporttom", "image": "" },
         { "id": "alon", "label": "Alon", "image": "" }
       ],
-      "correctId": "solporttom",
-      "lesson": "Pump.fun was created by Solporttom."
+      "correctId": "alon",
+      "lesson": "pump.fun was founded by Alon."
     },
     {
       "id": "m5",
@@ -68,15 +68,15 @@
     {
       "id": "m6",
       "tweetText": "Which of these charts looks like a rug pull?",
-      "tweetImage": "images/charts/rug1.png",
+      "tweetImage": "",
       "options": [
-        { "id": "rug1", "label": "Chart A", "image": "images/charts/rug1.png" },
-        { "id": "rug2", "label": "Chart B", "image": "images/charts/rug2.png" },
-        { "id": "rug3", "label": "Chart C", "image": "images/charts/rug3.png" },
+        { "id": "rug1", "label": "Chart A", "image": "images/rug1.png" },
+        { "id": "rug2", "label": "Chart B", "image": "images/rug2.png" },
+        { "id": "rug3", "label": "Chart C", "image": "images/rug3.png" },
         { "id": "none", "label": "None of them", "image": "" }
       ],
       "correctId": "rug1",
-      "lesson": "A rug pull chart shows a sharp rise followed by a near-total crash."
+      "lesson": "Classic rug: vertical pump then a near-total dump. (Change the correct option if a different image shows it better.)"
     },
     {
       "id": "m7",
@@ -84,12 +84,12 @@
       "tweetImage": "",
       "options": [
         { "id": "telegram", "label": "Telegram", "image": "" },
-        { "id": "twitter", "label": "Twitter", "image": "" },
+        { "id": "twitter", "label": "Twitter (X)", "image": "" },
         { "id": "youtube", "label": "YouTube", "image": "" },
         { "id": "tiktok", "label": "TikTok", "image": "" }
       ],
       "correctId": "twitter",
-      "lesson": "Twitter (X) is where most memecoin hype and trading communities form."
+      "lesson": "Twitter (X) is where most memecoin hype and communities organize."
     },
     {
       "id": "m8",
@@ -102,7 +102,7 @@
         { "id": "vitalik", "label": "Vitalik Buterin", "image": "" }
       ],
       "correctId": "anatoly",
-      "lesson": "Anatoly Yakovenko is the founder of Solana."
+      "lesson": "Anatoly Yakovenko founded Solana."
     },
     {
       "id": "m9",
@@ -111,11 +111,11 @@
       "options": [
         { "id": "leader", "label": "Key Opinion Leader", "image": "" },
         { "id": "list", "label": "Known On-chain List", "image": "" },
-        { "id": "light", "label": "Knowledge Of Liquidity", "image": "" },
+        { "id": "liquidity", "label": "Knowledge Of Liquidity", "image": "" },
         { "id": "league", "label": "Key Online League", "image": "" }
       ],
       "correctId": "leader",
-      "lesson": "KOL means Key Opinion Leader — influencers who move markets."
+      "lesson": "KOL = Key Opinion Leader — influential voices who can move sentiment."
     },
     {
       "id": "m10",
@@ -125,10 +125,11 @@
         { "id": "family", "label": "Family and Friends", "image": "" },
         { "id": "funny", "label": "Funny New Finance", "image": "" },
         { "id": "fast", "label": "Fast Node Farming", "image": "" },
-        { "id": "fake", "label": "Fake Narrative Fund", "image": "" }
+        { "id": "fund", "label": "Founders Native Fund", "image": "" }
       ],
       "correctId": "family",
-      "lesson": "FNF is shorthand for Family and Friends in early token allocations."
+      "lesson": "FNF usually refers to Family and Friends (early allocations / insider circles)."
     }
   ]
 }
+
