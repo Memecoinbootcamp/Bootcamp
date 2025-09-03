@@ -1,23 +1,25 @@
-// js/quiz.js
-(function(){
+// Allows selecting, changing, or UNselecting before Submit.
+(function () {
   const params = new URLSearchParams(location.search);
   const difficulty = (params.get("difficulty") || "easy").toLowerCase();
 
   const packMap = {
-    easy:   "content/easy.json",
+    easy: "content/easy.json",
     medium: "content/medium.json",
-    hard:   "content/hard.json"
+    hard: "content/hard.json",
   };
   const file = packMap[difficulty] || packMap.easy;
 
+  // Elements
   const crumbsEl = document.getElementById("crumbs");
-  const stageEl  = document.getElementById("stage");
+  const stageEl = document.getElementById("stage");
   const progressEl = document.getElementById("progress");
   const diffPill = document.getElementById("difficultyPill");
   const tweetImg = document.getElementById("tweetImg");
   const tweetText = document.getElementById("tweetText");
   const optsEl = document.getElementById("options");
   const lessonEl = document.getElementById("lesson");
+  const submitBtn = document.getElementById("submitBtn");
   const nextBtn = document.getElementById("nextBtn");
 
   const resultEl = document.getElementById("result");
@@ -26,32 +28,43 @@
   const sloganEl = document.getElementById("slogan");
   const retryLink = document.getElementById("retryLink");
 
+  // State
   let questions = [];
   let idx = 0;
   let score = 0;
-  const total = 10;
+  let selectedId = null;  // can be toggled off
+  let locked = false;
+  let total = 10;
 
   const medalRules = [
     { min: 7, icon: "🥇", slogan: "Certified Meme Sniper." },
     { min: 4, icon: "🥈", slogan: "Break-even Cadet." },
-    { min: 0, icon: "🥉", slogan: "Rugged Recruit." }
+    { min: 0, icon: "🥉", slogan: "Rugged Recruit." },
   ];
 
-  function setCrumbs(text){ crumbsEl.textContent = text; }
-
-  function updateProgress(){
-    progressEl.textContent = `Question ${Math.min(idx+1, total)}/${total}`;
+  function setCrumbs(text) { crumbsEl.textContent = text; }
+  function setSubmitEnabled(on) {
+    submitBtn.setAttribute("aria-disabled", on ? "false" : "true");
+  }
+  function updateProgress() {
+    progressEl.textContent = `Question ${Math.min(idx + 1, total)}/${total}`;
     diffPill.textContent = difficulty.charAt(0).toUpperCase() + difficulty.slice(1);
   }
 
-  function renderQuestion(){
+  function renderQuestion() {
     const q = questions[idx];
-    if(!q){ return showResult(); }
+    if (!q) return showResult();
+
+    locked = false;
+    selectedId = null;
+    setSubmitEnabled(false);
+    submitBtn.hidden = false;
+    nextBtn.hidden = true;
+    lessonEl.hidden = true;
 
     updateProgress();
 
-    // Tweet image & text (both optional in content)
-    if(q.tweetImage){
+    if (q.tweetImage) {
       tweetImg.src = q.tweetImage;
       tweetImg.hidden = false;
     } else {
@@ -62,123 +75,112 @@
 
     // Options
     optsEl.innerHTML = "";
-    lessonEl.hidden = true;
-    nextBtn.hidden = true;
+    q.options.forEach((opt) => {
+      const btn = document.createElement("button");
+      btn.className = "opt";
+      btn.type = "button";
+      btn.dataset.optId = opt.id;
 
-    q.options.forEach(opt => {
-      const a = document.createElement("button");
-      a.className = "opt";
-      a.setAttribute("type","button");
-
-      if(opt.image){
+      if (opt.image) {
         const img = document.createElement("img");
         img.src = opt.image;
         img.alt = opt.label || opt.id;
-        a.appendChild(img);
+        btn.appendChild(img);
       }
-
       const span = document.createElement("span");
       span.textContent = opt.label || opt.id;
-      a.appendChild(span);
+      btn.appendChild(span);
 
-      a.addEventListener("click", () => handlePick(opt.id, a, q.correctId, q.lesson));
-      optsEl.appendChild(a);
+      // TOGGLE selection (click again to unselect)
+      btn.addEventListener("click", () => {
+        if (locked) return;
+        // If already selected -> unselect
+        if (selectedId === opt.id) {
+          selectedId = null;
+          btn.classList.remove("picked");
+          setSubmitEnabled(false);
+        } else {
+          // Select this, unselect others
+          selectedId = opt.id;
+          Array.from(optsEl.children).forEach((b) => b.classList.remove("picked"));
+          btn.classList.add("picked");
+          setSubmitEnabled(true);
+        }
+      });
+
+      optsEl.appendChild(btn);
     });
   }
 
-  function handlePick(chosenId, el, correctId, lesson){
-    // Lock options
+  function gradeCurrent() {
+    if (locked || !selectedId) return;
+    locked = true;
+
+    const q = questions[idx];
     const buttons = Array.from(optsEl.querySelectorAll(".opt"));
-    buttons.forEach(b => b.disabled = true);
+    buttons.forEach((b) => (b.disabled = true));
 
-    // Mark
-    buttons.forEach(b => {
-      const label = b.querySelector("span")?.textContent || "";
-      // find id from options array by label (fallback)
-    });
-    if(chosenId === correctId){
+    const chosenBtn = buttons.find((b) => b.dataset.optId === selectedId);
+    const correctBtn = buttons.find((b) => b.dataset.optId === q.correctId);
+
+    if (selectedId === q.correctId) {
       score++;
-      el.classList.add("correct");
+      if (chosenBtn) chosenBtn.classList.add("correct");
     } else {
-      el.classList.add("wrong");
-      // highlight the correct one
-      const all = Array.from(optsEl.children);
-      const correctBtn = all.find(btn => {
-        // We store the id in a dataset for reliability
-        return btn.dataset && btn.dataset.optId === correctId;
-      });
-    }
-    // mark correct explicitly
-    for(const btn of buttons){
-      if((btn.dataset && btn.dataset.optId === correctId) || (btn.textContent || "").includes(correctId)){
-        btn.classList.add("correct");
-      }
+      if (chosenBtn) chosenBtn.classList.add("wrong");
+      if (correctBtn) correctBtn.classList.add("correct");
     }
 
-    // Lesson (if provided)
-    if(lesson){ lessonEl.textContent = lesson; lessonEl.hidden = false; }
+    if (q.lesson) {
+      lessonEl.textContent = q.lesson;
+      lessonEl.hidden = false;
+    }
 
+    submitBtn.hidden = true;
     nextBtn.hidden = false;
   }
+
+  submitBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (submitBtn.getAttribute("aria-disabled") === "true") return;
+    gradeCurrent();
+  });
 
   nextBtn.addEventListener("click", (e) => {
     e.preventDefault();
     idx++;
-    if(idx >= total){ showResult(); }
-    else { renderQuestion(); }
+    if (idx >= total) showResult();
+    else renderQuestion();
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 
-  function showResult(){
+  function showResult() {
     stageEl.hidden = true;
     resultEl.hidden = false;
-
     scorelineEl.textContent = `You scored ${score}/${total}`;
-    const rule = medalRules.find(r => score >= r.min) || medalRules[2];
+    const rule = medalRules.find((r) => score >= r.min) || medalRules[2];
     medalEl.textContent = rule.icon;
     sloganEl.textContent = rule.slogan;
-
     retryLink.href = `quiz.html?difficulty=${difficulty}`;
   }
 
-  // Patch: store option ids in dataset after render
-  function afterRenderAttachIds(){
-    const q = questions[idx];
-    if(!q) return;
-    const btns = Array.from(optsEl.children);
-    btns.forEach((btn, i) => {
-      const opt = q.options[i];
-      if(opt) btn.dataset.optId = opt.id;
-    });
-  }
-
-  // Load content
-  (async function init(){
+  // Init
+  (async function init() {
     setCrumbs(`Loading ${difficulty} pack…`);
-    try{
+    try {
       const res = await fetch(file, { cache: "no-store" });
-      if(!res.ok) throw new Error(`Failed to load ${file}`);
+      if (!res.ok) throw new Error(`Failed to load ${file}`);
       const pack = await res.json();
-      questions = (pack.questions || pack).slice(0, total);
-      if(questions.length < total){
-        console.warn("Less than 10 questions found; repeating some to fill.");
-        // duplicate to fill
-        while(questions.length < total && pack.length){
-          questions.push(pack[questions.length % pack.length]);
-        }
-      }
-      setCrumbs(`Memecoin Bootcamp • ${difficulty.toUpperCase()} • 10 Questions`);
+      questions = (pack.questions || pack || []).slice();
+      total = Math.min(10, questions.length || 10);
+      if (total === 0) throw new Error("No questions found.");
+      setCrumbs(`Memecoin Bootcamp • ${difficulty.toUpperCase()} • ${total} Questions`);
       stageEl.hidden = false;
       renderQuestion();
-      // attach ids right after first render
-      afterRenderAttachIds();
-      // Also attach after each mutation
-      const obs = new MutationObserver(afterRenderAttachIds);
-      obs.observe(optsEl, { childList: true });
-    } catch(e){
+    } catch (e) {
       setCrumbs(`Error: ${e.message}`);
     }
   })();
-
 })();
+
 
