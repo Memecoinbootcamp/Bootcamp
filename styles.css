@@ -206,6 +206,13 @@ body {
   margin: 10px auto;
 }
 
+/* Rug pull charts — BIG */
+.rug-option .option-image {
+  width: 100%;
+  max-width: 600px; /* 4x bigger */
+  height: auto;
+}
+
 .opts {
   display: grid;
   gap: 12px;
@@ -302,6 +309,7 @@ body {
 .slogan {
   color: #a8b0bf;
 }
+
 
 
 
