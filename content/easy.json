@@ -7,10 +7,11 @@
       "options": [
         { "id": "doge", "label": "$DOGE", "image": "" },
         { "id": "shib", "label": "$SHIB", "image": "" },
-        { "id": "bonk", "label": "$BONK", "image": "" }
+        { "id": "bonk", "label": "$BONK", "image": "" },
+        { "id": "floki", "label": "$FLOKI", "image": "" }
       ],
       "correctId": "doge",
-      "lesson": "Doge is the OG dog memecoin."
+      "lesson": "$DOGE started it all in 2013."
     },
     {
       "id": "q2",
@@ -19,10 +20,116 @@
       "options": [
         { "id": "pepe", "label": "$PEPE", "image": "" },
         { "id": "bonk", "label": "$BONK", "image": "" },
-        { "id": "wif", "label": "$WIF", "image": "" }
+        { "id": "wif", "label": "$WIF", "image": "" },
+        { "id": "shib", "label": "$SHIB", "image": "" }
       ],
       "correctId": "pepe",
-      "lesson": "Pepe the Frog is the iconic mascot for $PEPE."
+      "lesson": "Pepe the Frog is the face of $PEPE."
+    },
+    {
+      "id": "q3",
+      "tweetText": "Which dog memecoin calls itself the 'Dogecoin killer'?",
+      "tweetImage": "",
+      "options": [
+        { "id": "doge", "label": "$DOGE", "image": "" },
+        { "id": "shib", "label": "$SHIB", "image": "" },
+        { "id": "floki", "label": "$FLOKI", "image": "" },
+        { "id": "bonk", "label": "$BONK", "image": "" }
+      ],
+      "correctId": "shib",
+      "lesson": "$SHIB branded itself the 'Dogecoin killer.'"
+    },
+    {
+      "id": "q4",
+      "tweetText": "Which coin is Solana’s most famous dog memecoin?",
+      "tweetImage": "",
+      "options": [
+        { "id": "bonk", "label": "$BONK", "image": "" },
+        { "id": "doge", "label": "$DOGE", "image": "" },
+        { "id": "shib", "label": "$SHIB", "image": "" },
+        { "id": "floki", "label": "$FLOKI", "image": "" }
+      ],
+      "correctId": "bonk",
+      "lesson": "$BONK is Solana’s breakout memecoin."
+    },
+    {
+      "id": "q5",
+      "tweetText": "Which ticker is most associated with the phrase 'When moon?'",
+      "tweetImage": "",
+      "options": [
+        { "id": "doge", "label": "$DOGE", "image": "" },
+        { "id": "pepe", "label": "$PEPE", "image": "" },
+        { "id": "shib", "label": "$SHIB", "image": "" },
+        { "id": "bonk", "label": "$BONK", "image": "" }
+      ],
+      "correctId": "doge",
+      "lesson": "'Much wow. When moon?' — classic Doge meme."
+    },
+    {
+      "id": "q6",
+      "tweetText": "Which coin is named after Elon Musk’s Shiba Inu?",
+      "tweetImage": "",
+      "options": [
+        { "id": "floki", "label": "$FLOKI", "image": "" },
+        { "id": "doge", "label": "$DOGE", "image": "" },
+        { "id": "bonk", "label": "$BONK", "image": "" },
+        { "id": "shib", "label": "$SHIB", "image": "" }
+      ],
+      "correctId": "floki",
+      "lesson": "$FLOKI is named after Musk’s pet dog."
+    },
+    {
+      "id": "q7",
+      "tweetText": "Which memecoin is themed around Donald Trump?",
+      "tweetImage": "",
+      "options": [
+        { "id": "trump", "label": "$TRUMP", "image": "" },
+        { "id": "maga", "label": "$MAGA", "image": "" },
+        { "id": "doge", "label": "$DOGE", "image": "" },
+        { "id": "pepe", "label": "$PEPE", "image": "" }
+      ],
+      "correctId": "trump",
+      "lesson": "Yes, there is a memecoin literally called $TRUMP."
+    },
+    {
+      "id": "q8",
+      "tweetText": "Which coin community is known for shouting 'WAGMI' (We're All Gonna Make It)?",
+      "tweetImage": "",
+      "options": [
+        { "id": "shib", "label": "$SHIB", "image": "" },
+        { "id": "doge", "label": "$DOGE", "image": "" },
+        { "id": "pepe", "label": "$PEPE", "image": "" },
+        { "id": "bonk", "label": "$BONK", "image": "" }
+      ],
+      "correctId": "shib",
+      "lesson": "$SHIB’s 'Shib Army' helped popularize 'WAGMI.'"
+    },
+    {
+      "id": "q9",
+      "tweetText": "Which frog coin had a huge breakout on Ethereum in 2023?",
+      "tweetImage": "",
+      "options": [
+        { "id": "pepe", "label": "$PEPE", "image": "" },
+        { "id": "bonk", "label": "$BONK", "image": "" },
+        { "id": "doge", "label": "$DOGE", "image": "" },
+        { "id": "floki", "label": "$FLOKI", "image": "" }
+      ],
+      "correctId": "pepe",
+      "lesson": "$PEPE launched on Ethereum and went viral in 2023."
+    },
+    {
+      "id": "q10",
+      "tweetText": "Which coin has been called 'the people's currency'?",
+      "tweetImage": "",
+      "options": [
+        { "id": "doge", "label": "$DOGE", "image": "" },
+        { "id": "shib", "label": "$SHIB", "image": "" },
+        { "id": "pepe", "label": "$PEPE", "image": "" },
+        { "id": "bonk", "label": "$BONK", "image": "" }
+      ],
+      "correctId": "doge",
+      "lesson": "$DOGE is often called 'the people's currency.'"
     }
   ]
 }
+
