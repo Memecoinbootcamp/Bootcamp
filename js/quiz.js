@@ -1,7 +1,7 @@
 // Memecoin Bootcamp • Quiz runtime
-// - Bulletproof scoring (marks the correct button via data attribute)
-// - Supports large option images via JSON "class" (e.g., "rug-option")
-// - Centers labels; allows unselecting before submit
+// - Difficulty-specific medals (Hard has custom thresholds)
+// - Fixed: hides broken <img> when no image is provided
+// - Large option images supported via JSON "class"
 
 (function () {
   const params = new URLSearchParams(location.search);
@@ -37,16 +37,29 @@
   let idx = 0;
   let total = 10;
   let score = 0;
-  let selectedBtn = null; // DOM button picked by user
+  let selectedBtn = null;
   let locked = false;
   let currentQ = null;
 
-  const medalRules = [
-    { min: 9, icon: "🏆", slogan: "Meme General. Untouchable." },
-    { min: 7, icon: "🥇", slogan: "Certified Meme Sniper." },
-    { min: 4, icon: "🥈", slogan: "Break-even Cadet." },
-    { min: 0, icon: "🥉", slogan: "Rugged Recruit." },
-  ];
+  // Difficulty-specific medal rules
+  function getMedalRules(difficulty, total) {
+    if (difficulty === "hard") {
+      // Hard currently has 7 questions
+      return [
+        { min: 6, icon: "🏆", slogan: "Elite Meme Warlord." },
+        { min: 5, icon: "🥇", slogan: "Meme Sniper." },
+        { min: 3, icon: "🥈", slogan: "Survivor Cadet." },
+        { min: 0, icon: "🥉", slogan: "Rugged Recruit." }
+      ];
+    }
+    // Default for Easy/Medium (10 Qs)
+    return [
+      { min: 9, icon: "🏆", slogan: "Meme General. Untouchable." },
+      { min: 7, icon: "🥇", slogan: "Certified Meme Sniper." },
+      { min: 4, icon: "🥈", slogan: "Break-even Cadet." },
+      { min: 0, icon: "🥉", slogan: "Rugged Recruit." }
+    ];
+  }
 
   const setCrumbs = (t) => (crumbsEl && (crumbsEl.textContent = t));
   const setSubmitEnabled = (on) =>
@@ -71,19 +84,16 @@
 
     updateProgress();
 
-    // tweet (image + text)
-    if (currentQ.tweetImage) {
-      if (tweetImg) {
-        tweetImg.src = currentQ.tweetImage;
-        tweetImg.hidden = false;
-        tweetImg.className = "quiz-image"; // ensure correct class for sizing
-      }
+    // tweet (image + text) — fixed empty image bug
+    if (currentQ.tweetImage && currentQ.tweetImage.trim() !== "") {
+      tweetImg.src = currentQ.tweetImage;
+      tweetImg.hidden = false;
+      tweetImg.className = "quiz-image";
     } else {
-      if (tweetImg) {
-        tweetImg.hidden = true;
-        tweetImg.removeAttribute("src");
-      }
+      tweetImg.hidden = true;
+      tweetImg.removeAttribute("src");
     }
+
     if (tweetText) tweetText.textContent = currentQ.tweetText || "";
 
     // options
@@ -95,7 +105,6 @@
       btn.className = "opt";
       btn.type = "button";
 
-      // Attach any custom class for styling (e.g., "rug-option")
       if (opt.class) {
         opt.class
           .toString()
@@ -103,35 +112,29 @@
           .forEach((c) => c && btn.classList.add(c));
       }
 
-      // mark the correct choice (invisible to user, used for grading)
       const thisId = (opt.id ?? "").toString().trim().toLowerCase();
       if (thisId === correctId) btn.dataset.correct = "true";
 
-      // optional image
       if (opt.image) {
         const img = document.createElement("img");
         img.src = opt.image;
         img.alt = opt.label || opt.id || "option";
-        img.className = "option-image"; // used by CSS to size options
+        img.className = "option-image";
         btn.appendChild(img);
       }
 
-      // visible label
       const span = document.createElement("span");
       span.textContent = opt.label || opt.id;
       btn.appendChild(span);
 
-      // selection behavior: toggle select/unselect before submit
       btn.addEventListener("click", () => {
         if (locked) return;
 
         if (selectedBtn === btn) {
-          // unselect
           btn.classList.remove("picked");
           selectedBtn = null;
           setSubmitEnabled(false);
         } else {
-          // select this, unselect others
           Array.from(optsEl.children).forEach((b) => b.classList.remove("picked"));
           btn.classList.add("picked");
           selectedBtn = btn;
@@ -176,8 +179,9 @@
 
     if (scorelineEl) scorelineEl.textContent = `You scored ${score}/${total}`;
 
+    const rules = getMedalRules(difficulty, total);
     const rule =
-      medalRules.find((r) => score >= r.min) || medalRules[medalRules.length - 1];
+      rules.find((r) => score >= r.min) || rules[rules.length - 1];
 
     if (medalEl) medalEl.textContent = rule.icon;
     if (sloganEl) sloganEl.textContent = rule.slogan;
@@ -210,7 +214,7 @@
       const res = await fetch(file, { cache: "no-store" });
       if (!res.ok) throw new Error(`Failed to load ${file}`);
       const pack = await res.json();
-      questions = (pack.questions || pack || []).slice(0, 10);
+      questions = (pack.questions || pack || []);
       total = questions.length;
       if (total === 0) throw new Error("No questions found.");
 
@@ -222,4 +226,5 @@
     }
   })();
 })();
+
 
