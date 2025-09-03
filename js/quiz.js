@@ -1,4 +1,8 @@
-// Bulletproof scoring: mark the correct button and check that on submit.
+// Memecoin Bootcamp • Quiz runtime
+// - Bulletproof scoring (marks the correct button via data attribute)
+// - Supports large option images via JSON "class" (e.g., "rug-option")
+// - Centers labels; allows unselecting before submit
+
 (function () {
   const params = new URLSearchParams(location.search);
   const difficulty = (params.get("difficulty") || "easy").toLowerCase();
@@ -33,24 +37,24 @@
   let idx = 0;
   let total = 10;
   let score = 0;
-  let selectedBtn = null;  // the actual DOM button the user picked
+  let selectedBtn = null; // DOM button picked by user
   let locked = false;
   let currentQ = null;
 
   const medalRules = [
+    { min: 9, icon: "🏆", slogan: "Meme General. Untouchable." },
     { min: 7, icon: "🥇", slogan: "Certified Meme Sniper." },
     { min: 4, icon: "🥈", slogan: "Break-even Cadet." },
     { min: 0, icon: "🥉", slogan: "Rugged Recruit." },
   ];
 
-  const setCrumbs = (t) => (crumbsEl.textContent = t);
+  const setCrumbs = (t) => (crumbsEl && (crumbsEl.textContent = t));
   const setSubmitEnabled = (on) =>
-    submitBtn.setAttribute("aria-disabled", on ? "false" : "true");
+    submitBtn && submitBtn.setAttribute("aria-disabled", on ? "false" : "true");
 
   function updateProgress() {
-    progressEl.textContent = `Question ${Math.min(idx + 1, total)}/${total}`;
-    diffPill.textContent =
-      difficulty.charAt(0).toUpperCase() + difficulty.slice(1);
+    if (progressEl) progressEl.textContent = `Question ${Math.min(idx + 1, total)}/${total}`;
+    if (diffPill) diffPill.textContent = difficulty.charAt(0).toUpperCase() + difficulty.slice(1);
   }
 
   function renderQuestion() {
@@ -61,24 +65,29 @@
     locked = false;
     selectedBtn = null;
     setSubmitEnabled(false);
-    submitBtn.hidden = false;
-    nextBtn.hidden = true;
-    lessonEl.hidden = true;
+    if (submitBtn) submitBtn.hidden = false;
+    if (nextBtn) nextBtn.hidden = true;
+    if (lessonEl) lessonEl.hidden = true;
 
     updateProgress();
 
-    // tweet
+    // tweet (image + text)
     if (currentQ.tweetImage) {
-      tweetImg.src = currentQ.tweetImage;
-      tweetImg.hidden = false;
+      if (tweetImg) {
+        tweetImg.src = currentQ.tweetImage;
+        tweetImg.hidden = false;
+        tweetImg.className = "quiz-image"; // ensure correct class for sizing
+      }
     } else {
-      tweetImg.hidden = true;
-      tweetImg.removeAttribute("src");
+      if (tweetImg) {
+        tweetImg.hidden = true;
+        tweetImg.removeAttribute("src");
+      }
     }
-    tweetText.textContent = currentQ.tweetText || "";
+    if (tweetText) tweetText.textContent = currentQ.tweetText || "";
 
     // options
-    optsEl.innerHTML = "";
+    if (optsEl) optsEl.innerHTML = "";
     const correctId = (currentQ.correctId ?? "").toString().trim().toLowerCase();
 
     (currentQ.options || []).forEach((opt) => {
@@ -86,21 +95,33 @@
       btn.className = "opt";
       btn.type = "button";
 
-      // mark correct button right here (not visible to user)
+      // Attach any custom class for styling (e.g., "rug-option")
+      if (opt.class) {
+        opt.class
+          .toString()
+          .split(/\s+/)
+          .forEach((c) => c && btn.classList.add(c));
+      }
+
+      // mark the correct choice (invisible to user, used for grading)
       const thisId = (opt.id ?? "").toString().trim().toLowerCase();
       if (thisId === correctId) btn.dataset.correct = "true";
 
+      // optional image
       if (opt.image) {
         const img = document.createElement("img");
         img.src = opt.image;
-        img.alt = opt.label || opt.id;
+        img.alt = opt.label || opt.id || "option";
+        img.className = "option-image"; // used by CSS to size options
         btn.appendChild(img);
       }
+
+      // visible label
       const span = document.createElement("span");
       span.textContent = opt.label || opt.id;
       btn.appendChild(span);
 
-      // Toggle select / unselect
+      // selection behavior: toggle select/unselect before submit
       btn.addEventListener("click", () => {
         if (locked) return;
 
@@ -111,9 +132,7 @@
           setSubmitEnabled(false);
         } else {
           // select this, unselect others
-          Array.from(optsEl.children).forEach((b) =>
-            b.classList.remove("picked")
-          );
+          Array.from(optsEl.children).forEach((b) => b.classList.remove("picked"));
           btn.classList.add("picked");
           selectedBtn = btn;
           setSubmitEnabled(true);
@@ -142,40 +161,49 @@
       if (correctBtn) correctBtn.classList.add("correct");
     }
 
-    if (currentQ.lesson) {
+    if (currentQ.lesson && lessonEl) {
       lessonEl.textContent = currentQ.lesson;
       lessonEl.hidden = false;
     }
 
-    submitBtn.hidden = true;
-    nextBtn.hidden = false;
+    if (submitBtn) submitBtn.hidden = true;
+    if (nextBtn) nextBtn.hidden = false;
   }
-
-  submitBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    if (submitBtn.getAttribute("aria-disabled") === "true") return;
-    gradeCurrent();
-  });
-
-  nextBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    idx++;
-    if (idx >= total) showResult();
-    else renderQuestion();
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
 
   function showResult() {
-    stageEl.hidden = true;
-    resultEl.hidden = false;
-    scorelineEl.textContent = `You scored ${score}/${total}`;
-    const rule = medalRules.find((r) => score >= r.min) || medalRules[2];
-    medalEl.textContent = rule.icon;
-    sloganEl.textContent = rule.slogan;
-    retryLink.href = `quiz.html?difficulty=${difficulty}`;
+    if (stageEl) stageEl.hidden = true;
+    if (resultEl) resultEl.hidden = false;
+
+    if (scorelineEl) scorelineEl.textContent = `You scored ${score}/${total}`;
+
+    const rule =
+      medalRules.find((r) => score >= r.min) || medalRules[medalRules.length - 1];
+
+    if (medalEl) medalEl.textContent = rule.icon;
+    if (sloganEl) sloganEl.textContent = rule.slogan;
+    if (retryLink) retryLink.href = `quiz.html?difficulty=${difficulty}`;
   }
 
-  // Init
+  // events
+  if (submitBtn) {
+    submitBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (submitBtn.getAttribute("aria-disabled") === "true") return;
+      gradeCurrent();
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      idx++;
+      if (idx >= total) showResult();
+      else renderQuestion();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+
+  // init
   (async function init() {
     setCrumbs(`Loading ${difficulty} pack…`);
     try {
@@ -185,13 +213,13 @@
       questions = (pack.questions || pack || []).slice(0, 10);
       total = questions.length;
       if (total === 0) throw new Error("No questions found.");
-      setCrumbs(
-        `Memecoin Bootcamp • ${difficulty.toUpperCase()} • ${total} Questions`
-      );
-      stageEl.hidden = false;
+
+      setCrumbs(`Memecoin Bootcamp • ${difficulty.toUpperCase()} • ${total} Questions`);
+      if (stageEl) stageEl.hidden = false;
       renderQuestion();
     } catch (e) {
       setCrumbs(`Error: ${e.message}`);
     }
   })();
 })();
+
