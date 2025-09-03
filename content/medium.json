@@ -65,20 +65,18 @@
       "correctId": "promote",
       "lesson": "To 'shill' means to aggressively promote a coin."
     },
-   {
-  "id": "m6",
-  "tweetText": "Which of these charts looks like a rug pull?",
-  "tweetImage": "",
-  "options": [
-    { "id": "rug1", "label": "Chart A", "image": "images/rug1.png", "class": "rug-option" },
-    { "id": "rug2", "label": "Chart B", "image": "images/rug2.png", "class": "rug-option" },
-    { "id": "rug3", "label": "Chart C", "image": "images/rug3.png", "class": "rug-option" },
-    { "id": "none", "label": "None of them", "image": "" }
-  ],
-  "correctId": "rug1",
-  "lesson": "A classic rug pull is a vertical pump followed by a near-total dump."
-}
-
+    {
+      "id": "m6",
+      "tweetText": "Which of these charts looks like a rug pull?",
+      "tweetImage": "",
+      "options": [
+        { "id": "rug1", "label": "Chart A", "image": "images/rug1.png", "class": "rug-option" },
+        { "id": "rug2", "label": "Chart B", "image": "images/rug2.png", "class": "rug-option" },
+        { "id": "rug3", "label": "Chart C", "image": "images/rug3.png", "class": "rug-option" },
+        { "id": "none", "label": "None of them", "image": "" }
+      ],
+      "correctId": "rug1",
+      "lesson": "A classic rug pull is a vertical pump followed by a near-total dump."
     },
     {
       "id": "m7",
@@ -134,4 +132,5 @@
     }
   ]
 }
+
 
