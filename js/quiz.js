@@ -1,5 +1,5 @@
 // Memecoin Bootcamp • Quiz runtime
-// - Difficulty-specific medals (Hard has custom thresholds)
+// - Difficulty-specific medals (Hard has custom thresholds for 7 Qs)
 // - Hides tweet image when not provided
 // - Large option images via JSON "class"; centered labels; pre-submit unselect
 
@@ -35,7 +35,7 @@
   // State
   let questions = [];
   let idx = 0;
-  let total = 10;
+  let total = 10; // will be replaced by pack length
   let score = 0;
   let selectedBtn = null;
   let locked = false;
@@ -44,15 +44,15 @@
   // Difficulty-specific medals
   function getMedalRules(difficulty, total) {
     if (difficulty === "hard") {
-      // hard.json currently has 7 questions
+      // Hard currently has 7 questions
       return [
-        { min: 6, icon: "🏆", slogan: "Elite Meme Warlord." },
-        { min: 5, icon: "🥇", slogan: "Meme Sniper." },
-        { min: 3, icon: "🥈", slogan: "Survivor Cadet." },
-        { min: 0, icon: "🥉", slogan: "Rugged Recruit." }
+        { min: 6, icon: "🏆", slogan: "Elite Meme Warlord." }, // 6–7
+        { min: 5, icon: "🥇", slogan: "Meme Sniper." },        // 5
+        { min: 3, icon: "🥈", slogan: "Survivor Cadet." },     // 3–4
+        { min: 0, icon: "🥉", slogan: "Rugged Recruit." }      // 0–2
       ];
     }
-    // default for easy/medium (10 Qs)
+    // Easy/Medium (10 questions)
     return [
       { min: 9, icon: "🏆", slogan: "Meme General. Untouchable." },
       { min: 7, icon: "🥇", slogan: "Certified Meme Sniper." },
@@ -213,7 +213,7 @@
       if (!res.ok) throw new Error(`Failed to load ${file}`);
       const pack = await res.json();
       questions = (pack.questions || pack || []);
-      total = questions.length;
+      total = questions.length; // ← uses 7 for Hard automatically
       if (total === 0) throw new Error("No questions found.");
 
       setCrumbs(`Memecoin Bootcamp • ${difficulty.toUpperCase()} • ${total} Questions`);
@@ -224,6 +224,7 @@
     }
   })();
 })();
+
 
 
 
