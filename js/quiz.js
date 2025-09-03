@@ -1,4 +1,4 @@
-// Allows selecting, changing, or UNselecting before Submit.
+// Hardened scoring: normalize ids, toggle select, grade on Submit.
 (function () {
   const params = new URLSearchParams(location.search);
   const difficulty = (params.get("difficulty") || "easy").toLowerCase();
@@ -42,6 +42,8 @@
     { min: 0, icon: "🥉", slogan: "Rugged Recruit." },
   ];
 
+  const norm = (v) => (v ?? "").toString().trim().toLowerCase();
+
   function setCrumbs(text) { crumbsEl.textContent = text; }
   function setSubmitEnabled(on) {
     submitBtn.setAttribute("aria-disabled", on ? "false" : "true");
@@ -64,13 +66,8 @@
 
     updateProgress();
 
-    if (q.tweetImage) {
-      tweetImg.src = q.tweetImage;
-      tweetImg.hidden = false;
-    } else {
-      tweetImg.hidden = true;
-      tweetImg.removeAttribute("src");
-    }
+    if (q.tweetImage) { tweetImg.src = q.tweetImage; tweetImg.hidden = false; }
+    else { tweetImg.hidden = true; tweetImg.removeAttribute("src"); }
     tweetText.textContent = q.tweetText || "";
 
     // Options
@@ -79,7 +76,8 @@
       const btn = document.createElement("button");
       btn.className = "opt";
       btn.type = "button";
-      btn.dataset.optId = opt.id;
+      // store normalized id for reliable compares
+      btn.dataset.optId = norm(opt.id);
 
       if (opt.image) {
         const img = document.createElement("img");
@@ -94,14 +92,16 @@
       // TOGGLE selection (click again to unselect)
       btn.addEventListener("click", () => {
         if (locked) return;
-        // If already selected -> unselect
-        if (selectedId === opt.id) {
+        const thisId = btn.dataset.optId;
+
+        if (selectedId === thisId) {
+          // unselect
           selectedId = null;
           btn.classList.remove("picked");
           setSubmitEnabled(false);
         } else {
-          // Select this, unselect others
-          selectedId = opt.id;
+          // select this, unselect others
+          selectedId = thisId;
           Array.from(optsEl.children).forEach((b) => b.classList.remove("picked"));
           btn.classList.add("picked");
           setSubmitEnabled(true);
@@ -110,20 +110,23 @@
 
       optsEl.appendChild(btn);
     });
+
+    // Save normalized correctId on the container for quick lookup
+    optsEl.dataset.correctId = norm(q.correctId);
   }
 
   function gradeCurrent() {
     if (locked || !selectedId) return;
     locked = true;
 
-    const q = questions[idx];
+    const correctId = optsEl.dataset.correctId; // normalized
     const buttons = Array.from(optsEl.querySelectorAll(".opt"));
     buttons.forEach((b) => (b.disabled = true));
 
-    const chosenBtn = buttons.find((b) => b.dataset.optId === selectedId);
-    const correctBtn = buttons.find((b) => b.dataset.optId === q.correctId);
+    const chosenBtn  = buttons.find((b) => b.dataset.optId === selectedId);
+    const correctBtn = buttons.find((b) => b.dataset.optId === correctId);
 
-    if (selectedId === q.correctId) {
+    if (selectedId === correctId) {
       score++;
       if (chosenBtn) chosenBtn.classList.add("correct");
     } else {
@@ -131,7 +134,8 @@
       if (correctBtn) correctBtn.classList.add("correct");
     }
 
-    if (q.lesson) {
+    const q = questions[idx];
+    if (q && q.lesson) {
       lessonEl.textContent = q.lesson;
       lessonEl.hidden = false;
     }
@@ -171,8 +175,8 @@
       const res = await fetch(file, { cache: "no-store" });
       if (!res.ok) throw new Error(`Failed to load ${file}`);
       const pack = await res.json();
-      questions = (pack.questions || pack || []).slice();
-      total = Math.min(10, questions.length || 10);
+      questions = (pack.questions || pack || []).slice(0, 10);
+      total = questions.length;
       if (total === 0) throw new Error("No questions found.");
       setCrumbs(`Memecoin Bootcamp • ${difficulty.toUpperCase()} • ${total} Questions`);
       stageEl.hidden = false;
@@ -182,5 +186,6 @@
     }
   })();
 })();
+
 
 
