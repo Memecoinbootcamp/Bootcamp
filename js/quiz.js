@@ -1,4 +1,4 @@
-// Simple, reliable quiz logic with toggle-select and solid scoring.
+// Bulletproof scoring: mark the correct button and check that on submit.
 (function () {
   const params = new URLSearchParams(location.search);
   const difficulty = (params.get("difficulty") || "easy").toLowerCase();
@@ -10,7 +10,7 @@
   };
   const file = packMap[difficulty] || packMap.easy;
 
-  // UI
+  // UI elements
   const crumbsEl = document.getElementById("crumbs");
   const stageEl = document.getElementById("stage");
   const progressEl = document.getElementById("progress");
@@ -33,11 +33,9 @@
   let idx = 0;
   let total = 10;
   let score = 0;
-
-  let selectedId = null;       // what the user picked (normalized)
-  let locked = false;          // after Submit
-  let currentQ = null;         // current question object
-  let currentCorrectId = null; // normalized correct id
+  let selectedBtn = null;  // the actual DOM button the user picked
+  let locked = false;
+  let currentQ = null;
 
   const medalRules = [
     { min: 7, icon: "🥇", slogan: "Certified Meme Sniper." },
@@ -45,28 +43,27 @@
     { min: 0, icon: "🥉", slogan: "Rugged Recruit." },
   ];
 
-  const norm = (v) => (v ?? "").toString().trim().toLowerCase();
   const setCrumbs = (t) => (crumbsEl.textContent = t);
-  const setSubmitEnabled = (on) => submitBtn.setAttribute("aria-disabled", on ? "false" : "true");
+  const setSubmitEnabled = (on) =>
+    submitBtn.setAttribute("aria-disabled", on ? "false" : "true");
 
   function updateProgress() {
     progressEl.textContent = `Question ${Math.min(idx + 1, total)}/${total}`;
-    diffPill.textContent = difficulty.charAt(0).toUpperCase() + difficulty.slice(1);
+    diffPill.textContent =
+      difficulty.charAt(0).toUpperCase() + difficulty.slice(1);
   }
 
   function renderQuestion() {
     currentQ = questions[idx];
     if (!currentQ) return showResult();
 
-    // reset per-question
+    // reset state
     locked = false;
-    selectedId = null;
+    selectedBtn = null;
     setSubmitEnabled(false);
     submitBtn.hidden = false;
     nextBtn.hidden = true;
     lessonEl.hidden = true;
-
-    currentCorrectId = norm(currentQ.correctId);
 
     updateProgress();
 
@@ -82,12 +79,16 @@
 
     // options
     optsEl.innerHTML = "";
+    const correctId = (currentQ.correctId ?? "").toString().trim().toLowerCase();
+
     (currentQ.options || []).forEach((opt) => {
       const btn = document.createElement("button");
       btn.className = "opt";
       btn.type = "button";
-      const optId = norm(opt.id);
-      btn.dataset.optId = optId;
+
+      // mark correct button right here (not visible to user)
+      const thisId = (opt.id ?? "").toString().trim().toLowerCase();
+      if (thisId === correctId) btn.dataset.correct = "true";
 
       if (opt.image) {
         const img = document.createElement("img");
@@ -99,17 +100,22 @@
       span.textContent = opt.label || opt.id;
       btn.appendChild(span);
 
-      // Toggle selection (click again to unselect)
+      // Toggle select / unselect
       btn.addEventListener("click", () => {
         if (locked) return;
-        if (selectedId === optId) {
-          selectedId = null;
+
+        if (selectedBtn === btn) {
+          // unselect
           btn.classList.remove("picked");
+          selectedBtn = null;
           setSubmitEnabled(false);
         } else {
-          selectedId = optId;
-          Array.from(optsEl.children).forEach((b) => b.classList.remove("picked"));
+          // select this, unselect others
+          Array.from(optsEl.children).forEach((b) =>
+            b.classList.remove("picked")
+          );
           btn.classList.add("picked");
+          selectedBtn = btn;
           setSubmitEnabled(true);
         }
       });
@@ -119,20 +125,20 @@
   }
 
   function gradeCurrent() {
-    if (locked || !selectedId) return;
+    if (locked || !selectedBtn) return;
     locked = true;
 
     const buttons = Array.from(optsEl.querySelectorAll(".opt"));
     buttons.forEach((b) => (b.disabled = true));
 
-    const chosenBtn = buttons.find((b) => b.dataset.optId === selectedId);
-    const correctBtn = buttons.find((b) => b.dataset.optId === currentCorrectId);
+    const chosenCorrect = selectedBtn.dataset.correct === "true";
+    const correctBtn = buttons.find((b) => b.dataset.correct === "true");
 
-    if (selectedId === currentCorrectId) {
+    if (chosenCorrect) {
       score++;
-      if (chosenBtn) chosenBtn.classList.add("correct");
+      selectedBtn.classList.add("correct");
     } else {
-      if (chosenBtn) chosenBtn.classList.add("wrong");
+      selectedBtn.classList.add("wrong");
       if (correctBtn) correctBtn.classList.add("correct");
     }
 
@@ -179,7 +185,9 @@
       questions = (pack.questions || pack || []).slice(0, 10);
       total = questions.length;
       if (total === 0) throw new Error("No questions found.");
-      setCrumbs(`Memecoin Bootcamp • ${difficulty.toUpperCase()} • ${total} Questions`);
+      setCrumbs(
+        `Memecoin Bootcamp • ${difficulty.toUpperCase()} • ${total} Questions`
+      );
       stageEl.hidden = false;
       renderQuestion();
     } catch (e) {
@@ -187,7 +195,3 @@
     }
   })();
 })();
-
-
-
-
