@@ -1,4 +1,4 @@
-// Hardened scoring: normalize ids, toggle select, grade on Submit.
+// Simple, reliable quiz logic with toggle-select and solid scoring.
 (function () {
   const params = new URLSearchParams(location.search);
   const difficulty = (params.get("difficulty") || "easy").toLowerCase();
@@ -10,7 +10,7 @@
   };
   const file = packMap[difficulty] || packMap.easy;
 
-  // Elements
+  // UI
   const crumbsEl = document.getElementById("crumbs");
   const stageEl = document.getElementById("stage");
   const progressEl = document.getElementById("progress");
@@ -31,10 +31,13 @@
   // State
   let questions = [];
   let idx = 0;
-  let score = 0;
-  let selectedId = null;  // can be toggled off
-  let locked = false;
   let total = 10;
+  let score = 0;
+
+  let selectedId = null;       // what the user picked (normalized)
+  let locked = false;          // after Submit
+  let currentQ = null;         // current question object
+  let currentCorrectId = null; // normalized correct id
 
   const medalRules = [
     { min: 7, icon: "🥇", slogan: "Certified Meme Sniper." },
@@ -43,20 +46,19 @@
   ];
 
   const norm = (v) => (v ?? "").toString().trim().toLowerCase();
+  const setCrumbs = (t) => (crumbsEl.textContent = t);
+  const setSubmitEnabled = (on) => submitBtn.setAttribute("aria-disabled", on ? "false" : "true");
 
-  function setCrumbs(text) { crumbsEl.textContent = text; }
-  function setSubmitEnabled(on) {
-    submitBtn.setAttribute("aria-disabled", on ? "false" : "true");
-  }
   function updateProgress() {
     progressEl.textContent = `Question ${Math.min(idx + 1, total)}/${total}`;
     diffPill.textContent = difficulty.charAt(0).toUpperCase() + difficulty.slice(1);
   }
 
   function renderQuestion() {
-    const q = questions[idx];
-    if (!q) return showResult();
+    currentQ = questions[idx];
+    if (!currentQ) return showResult();
 
+    // reset per-question
     locked = false;
     selectedId = null;
     setSubmitEnabled(false);
@@ -64,20 +66,28 @@
     nextBtn.hidden = true;
     lessonEl.hidden = true;
 
+    currentCorrectId = norm(currentQ.correctId);
+
     updateProgress();
 
-    if (q.tweetImage) { tweetImg.src = q.tweetImage; tweetImg.hidden = false; }
-    else { tweetImg.hidden = true; tweetImg.removeAttribute("src"); }
-    tweetText.textContent = q.tweetText || "";
+    // tweet
+    if (currentQ.tweetImage) {
+      tweetImg.src = currentQ.tweetImage;
+      tweetImg.hidden = false;
+    } else {
+      tweetImg.hidden = true;
+      tweetImg.removeAttribute("src");
+    }
+    tweetText.textContent = currentQ.tweetText || "";
 
-    // Options
+    // options
     optsEl.innerHTML = "";
-    q.options.forEach((opt) => {
+    (currentQ.options || []).forEach((opt) => {
       const btn = document.createElement("button");
       btn.className = "opt";
       btn.type = "button";
-      // store normalized id for reliable compares
-      btn.dataset.optId = norm(opt.id);
+      const optId = norm(opt.id);
+      btn.dataset.optId = optId;
 
       if (opt.image) {
         const img = document.createElement("img");
@@ -89,19 +99,15 @@
       span.textContent = opt.label || opt.id;
       btn.appendChild(span);
 
-      // TOGGLE selection (click again to unselect)
+      // Toggle selection (click again to unselect)
       btn.addEventListener("click", () => {
         if (locked) return;
-        const thisId = btn.dataset.optId;
-
-        if (selectedId === thisId) {
-          // unselect
+        if (selectedId === optId) {
           selectedId = null;
           btn.classList.remove("picked");
           setSubmitEnabled(false);
         } else {
-          // select this, unselect others
-          selectedId = thisId;
+          selectedId = optId;
           Array.from(optsEl.children).forEach((b) => b.classList.remove("picked"));
           btn.classList.add("picked");
           setSubmitEnabled(true);
@@ -110,23 +116,19 @@
 
       optsEl.appendChild(btn);
     });
-
-    // Save normalized correctId on the container for quick lookup
-    optsEl.dataset.correctId = norm(q.correctId);
   }
 
   function gradeCurrent() {
     if (locked || !selectedId) return;
     locked = true;
 
-    const correctId = optsEl.dataset.correctId; // normalized
     const buttons = Array.from(optsEl.querySelectorAll(".opt"));
     buttons.forEach((b) => (b.disabled = true));
 
-    const chosenBtn  = buttons.find((b) => b.dataset.optId === selectedId);
-    const correctBtn = buttons.find((b) => b.dataset.optId === correctId);
+    const chosenBtn = buttons.find((b) => b.dataset.optId === selectedId);
+    const correctBtn = buttons.find((b) => b.dataset.optId === currentCorrectId);
 
-    if (selectedId === correctId) {
+    if (selectedId === currentCorrectId) {
       score++;
       if (chosenBtn) chosenBtn.classList.add("correct");
     } else {
@@ -134,9 +136,8 @@
       if (correctBtn) correctBtn.classList.add("correct");
     }
 
-    const q = questions[idx];
-    if (q && q.lesson) {
-      lessonEl.textContent = q.lesson;
+    if (currentQ.lesson) {
+      lessonEl.textContent = currentQ.lesson;
       lessonEl.hidden = false;
     }
 
@@ -186,6 +187,7 @@
     }
   })();
 })();
+
 
 
 
