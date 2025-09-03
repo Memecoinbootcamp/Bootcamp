@@ -1,0 +1,95 @@
+{
+  "questions": [
+    {
+      "id": "h1",
+      "tweetText": "What is the correct definition of a “vamp” in memecoins?",
+      "tweetImage": "",
+      "options": [
+        { "id": "pump", "label": "A sudden pump with no pullback", "image": "" },
+        { "id": "siphon", "label": "When the liquidity of a coin is sucked into another coin", "image": "" },
+        { "id": "relaunch", "label": "A stealth relaunch after a rug", "image": "" },
+        { "id": "insiderdump", "label": "Mass sell-off by insiders", "image": "" }
+      ],
+      "correctId": "siphon",
+      "lesson": "“Vamp” = liquidity gets siphoned from one coin into another (usually a fresher narrative)."
+    },
+    {
+      "id": "h2",
+      "tweetText": "What does “PVP” mean in the context of memecoins?",
+      "tweetImage": "",
+      "options": [
+        { "id": "players", "label": "Player vs Player trading contest", "image": "" },
+        { "id": "promo", "label": "Paid viral promotion", "image": "" },
+        { "id": "pairs", "label": "Pair vs Pair on a DEX", "image": "" },
+        { "id": "coinsfight", "label": "Two coins fighting each other (narrative vs narrative)", "image": "" }
+      ],
+      "correctId": "coinsfight",
+      "lesson": "PVP = coin vs coin — two narratives competing for capital and attention."
+    },
+    {
+      "id": "h3",
+      "tweetText": "Elon Musk tweets (context image). Which ticker is most likely to reach the highest market cap?",
+      "tweetImage": "images/hard1.png",
+      "options": [
+        { "id": "downtrump", "label": "DownTrump", "image": "" },
+        { "id": "trumpdown", "label": "TrumpDown", "image": "" },
+        { "id": "downald", "label": "Downald", "image": "" },
+        { "id": "trown", "label": "Trown", "image": "" }
+      ],
+      "correctId": "downald",
+      "lesson": "Short, pronounceable, and clean wordplay (“Down” + “Donald”) tends to travel further and stick better."
+    },
+    {
+      "id": "h4",
+      "tweetText": "Elon Musk tweet (context image). Which ticker is most likely to reach the highest market cap?",
+      "tweetImage": "images/hard2.png",
+      "options": [
+        { "id": "potus", "label": "POTUS — Pedo Of The United States", "image": "" },
+        { "id": "pedotrump", "label": "Pedotrump", "image": "" },
+        { "id": "trumpedo", "label": "Trumpedo", "image": "" },
+        { "id": "trumpafile", "label": "Trumpafile", "image": "" }
+      ],
+      "correctId": "potus",
+      "lesson": "Acronym recognition matters. “POTUS” is immediately familiar and compact — strong branding (content here is descriptive, not endorsement)."
+    },
+    {
+      "id": "h5",
+      "tweetText": "What is meant by the term “bundle” in memecoins?",
+      "tweetImage": "",
+      "options": [
+        { "id": "multiwallet", "label": "Multiple wallets within one coin controlled by a single individual", "image": "" },
+        { "id": "airdrop", "label": "A packaged airdrop for KOLs", "image": "" },
+        { "id": "groupbuy", "label": "A community group-buy via a bot", "image": "" },
+        { "id": "liqplus", "label": "Liquidity paired with a marketing budget", "image": "" }
+      ],
+      "correctId": "multiwallet",
+      "lesson": "A bundle typically refers to several wallets on one coin controlled by one actor."
+    },
+    {
+      "id": "h6",
+      "tweetText": "Another key factor is naming (not just the ticker). Musk tweets about a new Grok companion called ANI. Select the correct ticker and name.",
+      "tweetImage": "",
+      "options": [
+        { "id": "ani_a", "label": "New Grok AI Companion - $ANI", "image": "" },
+        { "id": "ani_b", "label": "New Grok Companion - $ANI", "image": "" },
+        { "id": "ani_c", "label": "Ani grok companion - $Ani", "image": "" },
+        { "id": "ani_d", "label": "Ani Grok Companion $Ani", "image": "" }
+      ],
+      "correctId": "ani_c",
+      "lesson": "Mind capitalization and phrasing. Consistent style with a clean ticker often converts best."
+    },
+    {
+      "id": "h7",
+      "tweetText": "What does “TX” stand for?",
+      "tweetImage": "",
+      "options": [
+        { "id": "tax", "label": "Tax", "image": "" },
+        { "id": "tokenx", "label": "Token Exchange", "image": "" },
+        { "id": "transaction", "label": "Transaction", "image": "" },
+        { "id": "testnet", "label": "Testnet Execution", "image": "" }
+      ],
+      "correctId": "transaction",
+      "lesson": "TX is shorthand for transaction."
+    }
+  ]
+}
