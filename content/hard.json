@@ -68,7 +68,7 @@
     {
       "id": "h6",
       "tweetText": "Another key factor is naming (not just the ticker). Musk tweets about a new Grok companion called ANI. Select the correct ticker and name.",
-      "tweetImage": "",
+      "tweetImage": "images/hard3.png",
       "options": [
         { "id": "ani_a", "label": "New Grok AI Companion - $ANI", "image": "" },
         { "id": "ani_b", "label": "New Grok Companion - $ANI", "image": "" },
@@ -93,3 +93,4 @@
     }
   ]
 }
+
