@@ -1,135 +1,190 @@
-{
-  "questions": [
-    {
-      "id": "q1",
-      "tweetText": "Which coin is the original dog memecoin?",
-      "tweetImage": "",
-      "options": [
-        { "id": "doge", "label": "$DOGE", "image": "" },
-        { "id": "shib", "label": "$SHIB", "image": "" },
-        { "id": "bonk", "label": "$BONK", "image": "" },
-        { "id": "floki", "label": "$FLOKI", "image": "" }
-      ],
-      "correctId": "doge",
-      "lesson": "$DOGE started it all in 2013."
-    },
-    {
-      "id": "q2",
-      "tweetText": "Which coin is famous for its green frog mascot?",
-      "tweetImage": "",
-      "options": [
-        { "id": "pepe", "label": "$PEPE", "image": "" },
-        { "id": "bonk", "label": "$BONK", "image": "" },
-        { "id": "wif", "label": "$WIF", "image": "" },
-        { "id": "shib", "label": "$SHIB", "image": "" }
-      ],
-      "correctId": "pepe",
-      "lesson": "Pepe the Frog is the face of $PEPE."
-    },
-    {
-      "id": "q3",
-      "tweetText": "Which dog memecoin calls itself the 'Dogecoin killer'?",
-      "tweetImage": "",
-      "options": [
-        { "id": "doge", "label": "$DOGE", "image": "" },
-        { "id": "shib", "label": "$SHIB", "image": "" },
-        { "id": "floki", "label": "$FLOKI", "image": "" },
-        { "id": "bonk", "label": "$BONK", "image": "" }
-      ],
-      "correctId": "shib",
-      "lesson": "$SHIB branded itself the 'Dogecoin killer.'"
-    },
-    {
-      "id": "q4",
-      "tweetText": "Which coin is Solana’s most famous dog memecoin?",
-      "tweetImage": "",
-      "options": [
-        { "id": "bonk", "label": "$BONK", "image": "" },
-        { "id": "doge", "label": "$DOGE", "image": "" },
-        { "id": "shib", "label": "$SHIB", "image": "" },
-        { "id": "floki", "label": "$FLOKI", "image": "" }
-      ],
-      "correctId": "bonk",
-      "lesson": "$BONK is Solana’s breakout memecoin."
-    },
-    {
-      "id": "q5",
-      "tweetText": "Which ticker is most associated with the phrase 'When moon?'",
-      "tweetImage": "",
-      "options": [
-        { "id": "doge", "label": "$DOGE", "image": "" },
-        { "id": "pepe", "label": "$PEPE", "image": "" },
-        { "id": "shib", "label": "$SHIB", "image": "" },
-        { "id": "bonk", "label": "$BONK", "image": "" }
-      ],
-      "correctId": "doge",
-      "lesson": "'Much wow. When moon?' — classic Doge meme."
-    },
-    {
-      "id": "q6",
-      "tweetText": "Which coin is named after Elon Musk’s Shiba Inu?",
-      "tweetImage": "",
-      "options": [
-        { "id": "floki", "label": "$FLOKI", "image": "" },
-        { "id": "doge", "label": "$DOGE", "image": "" },
-        { "id": "bonk", "label": "$BONK", "image": "" },
-        { "id": "shib", "label": "$SHIB", "image": "" }
-      ],
-      "correctId": "floki",
-      "lesson": "$FLOKI is named after Musk’s pet dog."
-    },
-    {
-      "id": "q7",
-      "tweetText": "Which memecoin is themed around Donald Trump?",
-      "tweetImage": "",
-      "options": [
-        { "id": "trump", "label": "$TRUMP", "image": "" },
-        { "id": "maga", "label": "$MAGA", "image": "" },
-        { "id": "doge", "label": "$DOGE", "image": "" },
-        { "id": "pepe", "label": "$PEPE", "image": "" }
-      ],
-      "correctId": "trump",
-      "lesson": "Yes, there is a memecoin literally called $TRUMP."
-    },
-    {
-      "id": "q8",
-      "tweetText": "Which coin community is known for shouting 'WAGMI' (We're All Gonna Make It)?",
-      "tweetImage": "",
-      "options": [
-        { "id": "shib", "label": "$SHIB", "image": "" },
-        { "id": "doge", "label": "$DOGE", "image": "" },
-        { "id": "pepe", "label": "$PEPE", "image": "" },
-        { "id": "bonk", "label": "$BONK", "image": "" }
-      ],
-      "correctId": "shib",
-      "lesson": "$SHIB’s 'Shib Army' helped popularize 'WAGMI.'"
-    },
-    {
-      "id": "q9",
-      "tweetText": "Which frog coin had a huge breakout on Ethereum in 2023?",
-      "tweetImage": "",
-      "options": [
-        { "id": "pepe", "label": "$PEPE", "image": "" },
-        { "id": "bonk", "label": "$BONK", "image": "" },
-        { "id": "doge", "label": "$DOGE", "image": "" },
-        { "id": "floki", "label": "$FLOKI", "image": "" }
-      ],
-      "correctId": "pepe",
-      "lesson": "$PEPE launched on Ethereum and went viral in 2023."
-    },
-    {
-      "id": "q10",
-      "tweetText": "Which coin has been called 'the people's currency'?",
-      "tweetImage": "",
-      "options": [
-        { "id": "doge", "label": "$DOGE", "image": "" },
-        { "id": "shib", "label": "$SHIB", "image": "" },
-        { "id": "pepe", "label": "$PEPE", "image": "" },
-        { "id": "bonk", "label": "$BONK", "image": "" }
-      ],
-      "correctId": "doge",
-      "lesson": "$DOGE is often called 'the people's currency.'"
+// Hardened scoring: normalize ids, toggle select, grade on Submit.
+(function () {
+  const params = new URLSearchParams(location.search);
+  const difficulty = (params.get("difficulty") || "easy").toLowerCase();
+
+  const packMap = {
+    easy: "content/easy.json",
+    medium: "content/medium.json",
+    hard: "content/hard.json",
+  };
+  const file = packMap[difficulty] || packMap.easy;
+
+  // Elements
+  const crumbsEl = document.getElementById("crumbs");
+  const stageEl = document.getElementById("stage");
+  const progressEl = document.getElementById("progress");
+  const diffPill = document.getElementById("difficultyPill");
+  const tweetImg = document.getElementById("tweetImg");
+  const tweetText = document.getElementById("tweetText");
+  const optsEl = document.getElementById("options");
+  const lessonEl = document.getElementById("lesson");
+  const submitBtn = document.getElementById("submitBtn");
+  const nextBtn = document.getElementById("nextBtn");
+
+  const resultEl = document.getElementById("result");
+  const medalEl = document.getElementById("medal");
+  const scorelineEl = document.getElementById("scoreline");
+  const sloganEl = document.getElementById("slogan");
+  const retryLink = document.getElementById("retryLink");
+
+  // State
+  let questions = [];
+  let idx = 0;
+  let score = 0;
+  let selectedId = null;  // can be toggled off
+  let locked = false;
+  let total = 10;
+
+  const medalRules = [
+    { min: 7, icon: "🥇", slogan: "Certified Meme Sniper." },
+    { min: 4, icon: "🥈", slogan: "Break-even Cadet." },
+    { min: 0, icon: "🥉", slogan: "Rugged Recruit." },
+  ];
+
+  const norm = (v) => (v ?? "").toString().trim().toLowerCase();
+
+  function setCrumbs(text) { crumbsEl.textContent = text; }
+  function setSubmitEnabled(on) {
+    submitBtn.setAttribute("aria-disabled", on ? "false" : "true");
+  }
+  function updateProgress() {
+    progressEl.textContent = `Question ${Math.min(idx + 1, total)}/${total}`;
+    diffPill.textContent = difficulty.charAt(0).toUpperCase() + difficulty.slice(1);
+  }
+
+  function renderQuestion() {
+    const q = questions[idx];
+    if (!q) return showResult();
+
+    locked = false;
+    selectedId = null;
+    setSubmitEnabled(false);
+    submitBtn.hidden = false;
+    nextBtn.hidden = true;
+    lessonEl.hidden = true;
+
+    updateProgress();
+
+    if (q.tweetImage) { tweetImg.src = q.tweetImage; tweetImg.hidden = false; }
+    else { tweetImg.hidden = true; tweetImg.removeAttribute("src"); }
+    tweetText.textContent = q.tweetText || "";
+
+    // Options
+    optsEl.innerHTML = "";
+    q.options.forEach((opt) => {
+      const btn = document.createElement("button");
+      btn.className = "opt";
+      btn.type = "button";
+      // store normalized id for reliable compares
+      btn.dataset.optId = norm(opt.id);
+
+      if (opt.image) {
+        const img = document.createElement("img");
+        img.src = opt.image;
+        img.alt = opt.label || opt.id;
+        btn.appendChild(img);
+      }
+      const span = document.createElement("span");
+      span.textContent = opt.label || opt.id;
+      btn.appendChild(span);
+
+      // TOGGLE selection (click again to unselect)
+      btn.addEventListener("click", () => {
+        if (locked) return;
+        const thisId = btn.dataset.optId;
+
+        if (selectedId === thisId) {
+          // unselect
+          selectedId = null;
+          btn.classList.remove("picked");
+          setSubmitEnabled(false);
+        } else {
+          // select this, unselect others
+          selectedId = thisId;
+          Array.from(optsEl.children).forEach((b) => b.classList.remove("picked"));
+          btn.classList.add("picked");
+          setSubmitEnabled(true);
+        }
+      });
+
+      optsEl.appendChild(btn);
+    });
+
+    // Save normalized correctId on the container for quick lookup
+    optsEl.dataset.correctId = norm(q.correctId);
+  }
+
+  function gradeCurrent() {
+    if (locked || !selectedId) return;
+    locked = true;
+
+    const correctId = optsEl.dataset.correctId; // normalized
+    const buttons = Array.from(optsEl.querySelectorAll(".opt"));
+    buttons.forEach((b) => (b.disabled = true));
+
+    const chosenBtn  = buttons.find((b) => b.dataset.optId === selectedId);
+    const correctBtn = buttons.find((b) => b.dataset.optId === correctId);
+
+    if (selectedId === correctId) {
+      score++;
+      if (chosenBtn) chosenBtn.classList.add("correct");
+    } else {
+      if (chosenBtn) chosenBtn.classList.add("wrong");
+      if (correctBtn) correctBtn.classList.add("correct");
     }
-  ]
-}
+
+    const q = questions[idx];
+    if (q && q.lesson) {
+      lessonEl.textContent = q.lesson;
+      lessonEl.hidden = false;
+    }
+
+    submitBtn.hidden = true;
+    nextBtn.hidden = false;
+  }
+
+  submitBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (submitBtn.getAttribute("aria-disabled") === "true") return;
+    gradeCurrent();
+  });
+
+  nextBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    idx++;
+    if (idx >= total) showResult();
+    else renderQuestion();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  function showResult() {
+    stageEl.hidden = true;
+    resultEl.hidden = false;
+    scorelineEl.textContent = `You scored ${score}/${total}`;
+    const rule = medalRules.find((r) => score >= r.min) || medalRules[2];
+    medalEl.textContent = rule.icon;
+    sloganEl.textContent = rule.slogan;
+    retryLink.href = `quiz.html?difficulty=${difficulty}`;
+  }
+
+  // Init
+  (async function init() {
+    setCrumbs(`Loading ${difficulty} pack…`);
+    try {
+      const res = await fetch(file, { cache: "no-store" });
+      if (!res.ok) throw new Error(`Failed to load ${file}`);
+      const pack = await res.json();
+      questions = (pack.questions || pack || []).slice(0, 10);
+      total = questions.length;
+      if (total === 0) throw new Error("No questions found.");
+      setCrumbs(`Memecoin Bootcamp • ${difficulty.toUpperCase()} • ${total} Questions`);
+      stageEl.hidden = false;
+      renderQuestion();
+    } catch (e) {
+      setCrumbs(`Error: ${e.message}`);
+    }
+  })();
+})();
+
 
