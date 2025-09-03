@@ -1,7 +1,7 @@
 // Memecoin Bootcamp • Quiz runtime
 // - Difficulty-specific medals (Hard has custom thresholds)
-// - Fixed: hides broken <img> when no image is provided
-// - Large option images supported via JSON "class"
+// - Hides tweet image when not provided
+// - Large option images via JSON "class"; centered labels; pre-submit unselect
 
 (function () {
   const params = new URLSearchParams(location.search);
@@ -14,7 +14,7 @@
   };
   const file = packMap[difficulty] || packMap.easy;
 
-  // UI elements
+  // UI
   const crumbsEl = document.getElementById("crumbs");
   const stageEl = document.getElementById("stage");
   const progressEl = document.getElementById("progress");
@@ -41,10 +41,10 @@
   let locked = false;
   let currentQ = null;
 
-  // Difficulty-specific medal rules
+  // Difficulty-specific medals
   function getMedalRules(difficulty, total) {
     if (difficulty === "hard") {
-      // Hard currently has 7 questions
+      // hard.json currently has 7 questions
       return [
         { min: 6, icon: "🏆", slogan: "Elite Meme Warlord." },
         { min: 5, icon: "🥇", slogan: "Meme Sniper." },
@@ -52,7 +52,7 @@
         { min: 0, icon: "🥉", slogan: "Rugged Recruit." }
       ];
     }
-    // Default for Easy/Medium (10 Qs)
+    // default for easy/medium (10 Qs)
     return [
       { min: 9, icon: "🏆", slogan: "Meme General. Untouchable." },
       { min: 7, icon: "🥇", slogan: "Certified Meme Sniper." },
@@ -74,7 +74,7 @@
     currentQ = questions[idx];
     if (!currentQ) return showResult();
 
-    // reset state
+    // reset
     locked = false;
     selectedBtn = null;
     setSubmitEnabled(false);
@@ -84,7 +84,7 @@
 
     updateProgress();
 
-    // tweet (image + text) — fixed empty image bug
+    // tweet image + text (hide image when not provided)
     if (currentQ.tweetImage && currentQ.tweetImage.trim() !== "") {
       tweetImg.src = currentQ.tweetImage;
       tweetImg.hidden = false;
@@ -93,7 +93,6 @@
       tweetImg.hidden = true;
       tweetImg.removeAttribute("src");
     }
-
     if (tweetText) tweetText.textContent = currentQ.tweetText || "";
 
     // options
@@ -105,16 +104,16 @@
       btn.className = "opt";
       btn.type = "button";
 
+      // apply custom classes (e.g., "rug-option")
       if (opt.class) {
-        opt.class
-          .toString()
-          .split(/\s+/)
-          .forEach((c) => c && btn.classList.add(c));
+        opt.class.toString().split(/\s+/).forEach((c) => c && btn.classList.add(c));
       }
 
+      // mark correct
       const thisId = (opt.id ?? "").toString().trim().toLowerCase();
       if (thisId === correctId) btn.dataset.correct = "true";
 
+      // image (optional)
       if (opt.image) {
         const img = document.createElement("img");
         img.src = opt.image;
@@ -123,13 +122,14 @@
         btn.appendChild(img);
       }
 
+      // label
       const span = document.createElement("span");
       span.textContent = opt.label || opt.id;
       btn.appendChild(span);
 
+      // pick/unpick logic
       btn.addEventListener("click", () => {
         if (locked) return;
-
         if (selectedBtn === btn) {
           btn.classList.remove("picked");
           selectedBtn = null;
@@ -180,8 +180,7 @@
     if (scorelineEl) scorelineEl.textContent = `You scored ${score}/${total}`;
 
     const rules = getMedalRules(difficulty, total);
-    const rule =
-      rules.find((r) => score >= r.min) || rules[rules.length - 1];
+    const rule = rules.find((r) => score >= r.min) || rules[rules.length - 1];
 
     if (medalEl) medalEl.textContent = rule.icon;
     if (sloganEl) sloganEl.textContent = rule.slogan;
@@ -196,7 +195,6 @@
       gradeCurrent();
     });
   }
-
   if (nextBtn) {
     nextBtn.addEventListener("click", (e) => {
       e.preventDefault();
@@ -226,5 +224,6 @@
     }
   })();
 })();
+
 
 
