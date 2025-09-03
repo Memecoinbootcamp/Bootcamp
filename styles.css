@@ -1,0 +1,27 @@
+:root{
+  --bg:#0f1115; --card:#151922; --fg:#f5f7fb; --muted:#a8b0bf;
+  --mint:#34f5c5; --amber:#ffb020; --pink:#ff5bb2; --red:#ff6a5a; --border:#232834;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,sans-serif}
+.wrap{max-width:1000px;margin:0 auto;padding:28px 18px}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.brand{font-weight:800;letter-spacing:0.2px}
+.brand span{color:var(--mint)}
+.ticker{padding:6px 10px;border:1px solid var(--border);border-radius:999px;color:var(--mint);font-weight:700}
+.hero{margin-top:18px;padding:48px 24px;border:1px solid var(--border);border-radius:18px;background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,0))}
+h1{margin:0 0 10px;font-size:32px}
+.sub{color:var(--muted);margin:0 0 24px}
+.buttons{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.btn{display:inline-block;padding:14px 20px;border-radius:14px;text-decoration:none;color:#0b0d11;font-weight:800}
+.easy{background:var(--mint)}
+.medium{background:var(--amber)}
+.hard{background:var(--red)}
+.btn:hover{filter:brightness(.95)}
+.note{color:var(--muted);font-size:14px}
+.how{margin:36px 0 10px}
+.how h2{margin:0 0 8px;font-size:20px}
+.how ol{margin:0;padding-left:18px;color:var(--muted)}
+.foot{margin-top:32px;color:#8ea0b5;font-size:13px;text-align:center}
+@media (min-width:720px){ h1{font-size:40px} }
