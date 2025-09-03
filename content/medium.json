@@ -1,0 +1,134 @@
+{
+  "questions": [
+    {
+      "id": "m1",
+      "tweetText": "Where did Fartcoin originate?",
+      "tweetImage": "",
+      "options": [
+        { "id": "elon", "label": "Elon tweet", "image": "" },
+        { "id": "backrooms", "label": "Infinite Backrooms", "image": "" },
+        { "id": "rogan", "label": "A Joe Rogan Interview", "image": "" },
+        { "id": "unknown", "label": "The Developer is unknown", "image": "" }
+      ],
+      "correctId": "backrooms",
+      "lesson": "Fartcoin originated from the Infinite Backrooms meme lore."
+    },
+    {
+      "id": "m2",
+      "tweetText": "Who has more influence on the market?",
+      "tweetImage": "",
+      "options": [
+        { "id": "trump", "label": "Donald Trump", "image": "" },
+        { "id": "logan", "label": "Logan Paul", "image": "" },
+        { "id": "elon", "label": "Elon Musk", "image": "" },
+        { "id": "vitalik", "label": "Vitalik Buterin", "image": "" }
+      ],
+      "correctId": "elon",
+      "lesson": "Elon Musk’s tweets have historically moved crypto markets instantly."
+    },
+    {
+      "id": "m3",
+      "tweetText": "What was the world's first memecoin?",
+      "tweetImage": "",
+      "options": [
+        { "id": "doge", "label": "$DOGE", "image": "" },
+        { "id": "pepe", "label": "$PEPE", "image": "" },
+        { "id": "lolcoin", "label": "Lolcoin", "image": "" },
+        { "id": "wojak", "label": "$WOJAK", "image": "" }
+      ],
+      "correctId": "lolcoin",
+      "lesson": "Before $DOGE went mainstream, Lolcoin was considered the first memecoin experiment."
+    },
+    {
+      "id": "m4",
+      "tweetText": "Who is the founder of pump.fun?",
+      "tweetImage": "",
+      "options": [
+        { "id": "anatoly", "label": "Anatoly", "image": "" },
+        { "id": "elon", "label": "Elon Musk", "image": "" },
+        { "id": "solporttom", "label": "Solporttom", "image": "" },
+        { "id": "alon", "label": "Alon", "image": "" }
+      ],
+      "correctId": "solporttom",
+      "lesson": "Pump.fun was created by Solporttom."
+    },
+    {
+      "id": "m5",
+      "tweetText": "What is the correct definition of 'shill'?",
+      "tweetImage": "",
+      "options": [
+        { "id": "buy", "label": "To buy a coin", "image": "" },
+        { "id": "sell", "label": "To sell a coin", "image": "" },
+        { "id": "promote", "label": "To promote a coin", "image": "" },
+        { "id": "fud", "label": "To FUD a coin", "image": "" }
+      ],
+      "correctId": "promote",
+      "lesson": "To 'shill' means to aggressively promote a coin."
+    },
+    {
+      "id": "m6",
+      "tweetText": "Which of these charts looks like a rug pull?",
+      "tweetImage": "images/charts/rug1.png",
+      "options": [
+        { "id": "rug1", "label": "Chart A", "image": "images/charts/rug1.png" },
+        { "id": "rug2", "label": "Chart B", "image": "images/charts/rug2.png" },
+        { "id": "rug3", "label": "Chart C", "image": "images/charts/rug3.png" },
+        { "id": "none", "label": "None of them", "image": "" }
+      ],
+      "correctId": "rug1",
+      "lesson": "A rug pull chart shows a sharp rise followed by a near-total crash."
+    },
+    {
+      "id": "m7",
+      "tweetText": "What is the biggest social media platform for memecoins?",
+      "tweetImage": "",
+      "options": [
+        { "id": "telegram", "label": "Telegram", "image": "" },
+        { "id": "twitter", "label": "Twitter", "image": "" },
+        { "id": "youtube", "label": "YouTube", "image": "" },
+        { "id": "tiktok", "label": "TikTok", "image": "" }
+      ],
+      "correctId": "twitter",
+      "lesson": "Twitter (X) is where most memecoin hype and trading communities form."
+    },
+    {
+      "id": "m8",
+      "tweetText": "Who is the founder of Solana?",
+      "tweetImage": "",
+      "options": [
+        { "id": "anatoly", "label": "Anatoly Yakovenko", "image": "" },
+        { "id": "billy", "label": "Billy Markus", "image": "" },
+        { "id": "furie", "label": "Matt Furie", "image": "" },
+        { "id": "vitalik", "label": "Vitalik Buterin", "image": "" }
+      ],
+      "correctId": "anatoly",
+      "lesson": "Anatoly Yakovenko is the founder of Solana."
+    },
+    {
+      "id": "m9",
+      "tweetText": "What does KOL stand for?",
+      "tweetImage": "",
+      "options": [
+        { "id": "leader", "label": "Key Opinion Leader", "image": "" },
+        { "id": "list", "label": "Known On-chain List", "image": "" },
+        { "id": "light", "label": "Knowledge Of Liquidity", "image": "" },
+        { "id": "league", "label": "Key Online League", "image": "" }
+      ],
+      "correctId": "leader",
+      "lesson": "KOL means Key Opinion Leader — influencers who move markets."
+    },
+    {
+      "id": "m10",
+      "tweetText": "What does FNF stand for in crypto slang?",
+      "tweetImage": "",
+      "options": [
+        { "id": "family", "label": "Family and Friends", "image": "" },
+        { "id": "funny", "label": "Funny New Finance", "image": "" },
+        { "id": "fast", "label": "Fast Node Farming", "image": "" },
+        { "id": "fake", "label": "Fake Narrative Fund", "image": "" }
+      ],
+      "correctId": "family",
+      "lesson": "FNF is shorthand for Family and Friends in early token allocations."
+    }
+  ]
+}
