@@ -28,16 +28,16 @@
     },
     {
       "id": "q3",
-      "tweetText": "Which dog memecoin calls itself the 'Dogecoin killer'?",
+      "tweetText": "What is the most important element to look for in a memecoin?",
       "tweetImage": "",
       "options": [
-        { "id": "doge", "label": "$DOGE", "image": "" },
-        { "id": "shib", "label": "$SHIB", "image": "" },
-        { "id": "floki", "label": "$FLOKI", "image": "" },
-        { "id": "bonk", "label": "$BONK", "image": "" }
+        { "id": "ticker", "label": "Ticker", "image": "" },
+        { "id": "narrative", "label": "Narrative", "image": "" },
+        { "id": "image", "label": "Image", "image": "" },
+        { "id": "utility", "label": "Utility", "image": "" }
       ],
-      "correctId": "shib",
-      "lesson": "$SHIB branded itself the 'Dogecoin killer.'"
+      "correctId": "narrative",
+      "lesson": "Narrative drives hype and community in memecoins more than anything else."
     },
     {
       "id": "q4",
@@ -80,16 +80,16 @@
     },
     {
       "id": "q7",
-      "tweetText": "Which memecoin is themed around Donald Trump?",
+      "tweetText": "Which coin was made by Donald Trump?",
       "tweetImage": "",
       "options": [
-        { "id": "trump", "label": "$TRUMP", "image": "" },
+        { "id": "america", "label": "$AMERICA", "image": "" },
         { "id": "maga", "label": "$MAGA", "image": "" },
-        { "id": "doge", "label": "$DOGE", "image": "" },
-        { "id": "pepe", "label": "$PEPE", "image": "" }
+        { "id": "trump", "label": "$TRUMP", "image": "" },
+        { "id": "us", "label": "$US", "image": "" }
       ],
       "correctId": "trump",
-      "lesson": "Yes, there is a memecoin literally called $TRUMP."
+      "lesson": "$TRUMP is the memecoin directly themed around Donald Trump."
     },
     {
       "id": "q8",
@@ -132,3 +132,4 @@
     }
   ]
 }
+
