@@ -75,8 +75,8 @@
         { "id": "rug3", "label": "Chart C", "image": "images/rug3.png", "class": "rug-option" },
         { "id": "none", "label": "None of them", "image": "" }
       ],
-      "correctId": "rug1",
-      "lesson": "A classic rug pull is a vertical pump followed by a near-total dump."
+      "correctId": "rug3",
+      "lesson": "By looking closely at the initial green candle which is directly upwards to migration we can see that this is unnatural and is a common theme in \"crash charts\"."
     },
     {
       "id": "m7",
@@ -132,5 +132,6 @@
     }
   ]
 }
+
 
 
