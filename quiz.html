@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quiz • Memecoin Bootcamp</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* minimal quiz styling additions */
+    .quiz-wrap{max-width:900px;margin:0 auto;padding:24px 18px}
+    .crumbs{color:#a8b0bf;font-size:14px;margin-bottom:10px}
+    .qcard{border:1px solid var(--border);border-radius:16px;padding:18px;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,0))}
+    .tweetbox{display:grid;gap:12px;margin-bottom:14px}
+    .tweetimg{width:100%;max-height:340px;object-fit:contain;border:1px solid var(--border);border-radius:12px;background:#0c0f14}
+    .tweettext{color:var(--fg)}
+    .opts{display:grid;gap:12px;margin-top:10px}
+    @media(min-width:760px){.opts{grid-template-columns:repeat(2,1fr)}}
+    .opt{display:flex;gap:12px;align-items:center;padding:12px;border:1px solid var(--border);border-radius:12px;background:#121620;cursor:pointer;text-decoration:none;color:var(--fg)}
+    .opt:hover{filter:brightness(.98)}
+    .opt img{width:42px;height:42px;border-radius:8px;object-fit:cover;border:1px solid #2a2f3a;background:#0e1218}
+    .opt.correct{outline:2px solid #34f5c5}
+    .opt.wrong{outline:2px solid #ff6a5a}
+    .bar{display:flex;justify-content:space-between;align-items:center;margin:16px 0 10px}
+    .pill{padding:6px 10px;border:1px solid var(--border);border-radius:999px;color:#a8b0bf;font-size:13px}
+    .next{margin-top:12px;display:inline-block;padding:12px 18px;border-radius:12px;background:var(--mint);color:#0b0d11;font-weight:800;text-decoration:none}
+    .lesson{margin-top:10px;color:#a8b0bf;font-size:14px}
+    .result{border:1px solid var(--border);border-radius:16px;padding:24px;text-align:center}
+    .medal{font-size:56px;margin-bottom:8px}
+    .scorebig{font-size:22px;margin:8px 0 2px}
+    .slogan{color:#a8b0bf}
+  </style>
+</head>
+<body>
+  <main class="quiz-wrap">
+    <header class="nav">
+      <div class="brand">Memecoin <span>Bootcamp</span></div>
+      <a class="ticker" href="./">$BOOTCAMP</a>
+    </header>
+
+    <div class="crumbs" id="crumbs">Loading…</div>
+
+    <section class="qcard" id="stage" hidden>
+      <div class="bar">
+        <div class="pill" id="progress">Question 1/10</div>
+        <div class="pill" id="difficultyPill">Difficulty</div>
+      </div>
+
+      <div class="tweetbox">
+        <img id="tweetImg" class="tweetimg" alt="Tweet image (if provided)" />
+        <div id="tweetText" class="tweettext"></div>
+      </div>
+
+      <div class="opts" id="options"></div>
+      <div class="lesson" id="lesson" hidden></div>
+      <a href="#" id="nextBtn" class="next" hidden>Next</a>
+    </section>
+
+    <section class="result" id="result" hidden>
+      <div class="medal" id="medal">🥉</div>
+      <div class="scorebig" id="scoreline">You scored 0/10</div>
+      <div class="slogan" id="slogan">Rugged Recruit.</div>
+      <div style="margin-top:14px;">
+        <a class="next" href="./">Back to Home</a>
+        <a class="next" style="margin-left:10px" id="retryLink" href="#">Retry</a>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/quiz.js"></script>
+</body>
+</html>
